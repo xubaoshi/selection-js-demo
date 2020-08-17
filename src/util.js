@@ -22,6 +22,29 @@ export const isEmpty = (value) => {
   return false
 }
 
+export const revertMapToObject = (map) => {
+  let obj = {}
+  for (let [key, value] of map) {
+    obj[key] = value
+  }
+  return obj
+}
+
+// 按照 xptah 分类
+export const filterListByField = (list, fieldName) => {
+  if (isEmpty(list)) return []
+  const map = new Map()
+  list.forEach((item) => {
+    if (map.has(item[fieldName])) {
+      map.set(item[fieldName], [map.get(item[fieldName]), item].flat())
+    } else {
+      map.set(item[fieldName], [item])
+    }
+  })
+  return revertMapToObject(map)
+}
+
 export default {
   isEmpty,
+  filterListByField,
 }
