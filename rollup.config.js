@@ -1,6 +1,7 @@
 import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 import babel from 'rollup-plugin-babel'
+import css from 'rollup-plugin-css-only'
 import { uglify } from 'rollup-plugin-uglify'
 
 var env = process.env.NODE_ENV
@@ -19,6 +20,10 @@ var config = {
     babel({
       exclude: 'node_modules/**',
       runtimeHelpers: true,
+    }),
+    css({
+      // Default behaviour is to write all styles to the bundle destination where .js is replaced by .css
+      output: null,
     }),
   ],
 }
